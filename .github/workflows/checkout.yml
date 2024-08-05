@@ -1,0 +1,28 @@
+name: Check out
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 9 * * 1'
+  - cron: '0 9 * * 2'
+  - cron: '0 9 * * 3'
+  - cron: '0 9 * * 4'
+  #- cron: '45 8 * * 5'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: kagekirin/gha-py-toolbox/actions/slack/send-message-raw@main
+      with:
+        token: ${{ secrets.SLACK_TOKEN }}
+        channel: ${{ secrets.SLACK_CHANNEL }}
+        message: ${{ secrets.SLACK_CHECKOUT_MSG }}
+        method: chat.postMessage
+    - uses: kagekirin/gha-py-toolbox/actions/slack/send-message-raw@main
+      with:
+        token: ${{ secrets.SLACK_TOKEN }}
+        channel: ${{ secrets.SLACK_CHANNEL }}
+        message: ${{ secrets.SLACK_CHECKOUT_ACTION }}
+        method: chat.meMessage
