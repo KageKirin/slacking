@@ -1,0 +1,28 @@
+name: Check in
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '45 23 * * 0'
+  - cron: '35 23 * * 1'
+  - cron: '43 23 * * 2'
+  - cron: '52 23 * * 3'
+  #- cron: '59 23 * * 4'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: kagekirin/gha-py-toolbox/actions/slack/send-message@main
+      with:
+        token: ${{ secrets.SLACK_TOKEN }}
+        channel: ${{ secrets.SLACK_CHANNEL }}
+        message: ${{ secrets.SLACK_CHECKIN_MSG }}
+        method: chat_postMessage
+    - uses: kagekirin/gha-py-toolbox/actions/slack/send-message@main
+      with:
+        token: ${{ secrets.SLACK_TOKEN }}
+        channel: ${{ secrets.SLACK_CHANNEL }}
+        message: ${{ secrets.SLACK_CHECKIN_ACTION }}
+        method: chat_meMessage
